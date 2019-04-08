@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Hey !</h1>
+<div mat-dialog-content>
+    <p *ngIf="data!=null && data.message!=null">{{data.message}}</p>
+</div>
+
+
+
+<div *ngIf="data!=null && data.data!=null">
+<span>{{data.data.length}}</span>
+
+    <mat-card class="example-card" *ngFor="let item of data.data;">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{item[0]}}</mat-card-title>
+        </mat-card-header>
+        <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+        <mat-card-content>
+            <p [innerHtml]="item[1]">
+
+            </p>
+        </mat-card-content>
+    </mat-card>
+
+
+
+</div>
+
+
+
+
+
+
+<div mat-dialog-actions>
+    <button mat-button *ngIf="data.isconfirmation==null ||  data.isconfirmation!=false" (click)="onNoClick()">No Thanks</button>
+    <button mat-button mat-dialog-close="yes" cdkFocusInitial>Ok</button>
+</div>
