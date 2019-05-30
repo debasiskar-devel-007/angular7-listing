@@ -1,29 +1,39 @@
-<h1 mat-dialog-title>Hey !</h1>
+<h1 mat-dialog-title *ngIf="data!=null && data.message!=null" >Hey !</h1>
+<h1 mat-dialog-title *ngIf="data!=null && data.data!=null && data.data[0]==null">Details </h1>
 <div mat-dialog-content>
     <p *ngIf="data!=null && data.message!=null">{{data.message}}</p>
+
+
+    <div *ngIf="data!=null && data.data!=null">
+
+
+
+        <mat-card class="example-card" *ngFor="let item of data.data;">
+            <mat-card-header id="dialogdata{{item[0]}}">
+                <!--<div mat-card-avatar class="example-header-image"></div>-->
+                <mat-card-title>{{item[0]}}</mat-card-title>
+            </mat-card-header>
+            <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+            <mat-card-content id="dialogdata{{item[0]}}">
+                <p [innerHtml]="item[1]">
+
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+    <!--for custom page in modal(mainly used for tree)-->
+    <div *ngIf="data!=null && data.data!=null  && data.data[0]!=null &&  data.data[0].customdata!=null">
+
+        <iframe class="custom-datadiv" height="auto"  [src]="data.data[0].customdata" ></iframe>
+
+    </div>
+
+
 </div>
 
 
-
-<div *ngIf="data!=null && data.data!=null">
-<span>{{data.data.length}}</span>
-
-    <mat-card class="example-card" *ngFor="let item of data.data;">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{item[0]}}</mat-card-title>
-        </mat-card-header>
-        <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-        <mat-card-content>
-            <p [innerHtml]="item[1]">
-
-            </p>
-        </mat-card-content>
-    </mat-card>
-
-
-
-</div>
 
 
 

@@ -1,0 +1,94 @@
+<!--
+<mat-card [formGroup]="myForm">
+  <mat-form-field>
+    <input matInput placeholder="username" type="text"   >
+  </mat-form-field>
+</mat-card>
+-->
+
+<!--<span class="bg_white">-->
+<span style="background-color: #116cf8">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <span *ngFor="let item of fields">
+
+
+        <mat-form-field *ngIf = "item.inputType == 'input'" >
+<!--             <span *ngIf = "item.inputType == 'input'"  >-->
+<!---->
+            <input matInput  [placeholder]="item.label" [type]="item.type" [formControl] = "item.name" />
+
+            <mat-error *ngIf="item.name.hasError(item.name) && !item.name.hasError('required')">
+     {{item.message}}
+    </mat-error>
+            <mat-error *ngIf="item.name.hasError('required')">
+      {{item.label}} is <strong>required</strong>
+    </mat-error>
+
+ </mat-form-field>
+<!--            input type end-->
+
+
+
+<mat-checkbox *ngIf = "item.inputType == 'chackbox'" [formControl]="item.name">{{item.label}}</mat-checkbox>
+<!--checkbox-->
+
+
+          <label *ngIf = "item.inputType == 'radio'" >{{item.label}}:</label>
+<mat-radio-group [formControl]="item.name">
+<mat-radio-button *ngFor="let items of item.radiooptions" [value]="items">{{items}}</mat-radio-button>
+</mat-radio-group>
+
+<!--            radiobutton-->
+
+            <mat-form-field *ngIf = "item.inputType == 'date'">
+<input matInput [matDatepicker]="picker" [formControl]="item.name" [placeholder]="item.label">
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker></mat-datepicker>
+<mat-hint></mat-hint>
+<!--<ng-container *ngFor="let validation of item.validations;">
+<mat-error *ngIf="myForm.get(item.name).hasError(validation.name)">{{validation.message}}</mat-error>
+</ng-container>-->
+</mat-form-field>
+<!--            date-->
+
+            <mat-form-field *ngIf = "item.inputType == 'select'">
+<mat-select [placeholder]="item.label" [formControl]="item.name">
+<mat-option *ngFor="let items of item.selectoptions" [value]="items">{{items}}</mat-option>
+</mat-select>
+</mat-form-field>
+
+
+
+
+
+
+    <mat-card-content *ngIf="item.inputType == 'file'">
+<label>
+  <input  [type]="item.type" ngFileSelect [options]="apiService.options" (uploadOutput)="apiService.onUploadOutput($event,filenamevalc,uploadtypec,uploadpathc)" [uploadInput]="apiService.uploadInput" multiple  #fileInput1>
+  or choose file(s)
+</label>
+<mat-progress-bar  mode="determinate" *ngIf="apiService.progress[filenamevalc] != null && apiService.progress[filenamevalc] >0" [value]="apiService.progress[filenamevalc]"> <!--{{progress[filenamevalc]}}%--></mat-progress-bar>
+        <br>
+        <p *ngIf="apiService.progress[filenamevalc]">{{apiService.progress[filenamevalc]}}%</p>
+        <br>
+<button mat-raised-button color="warn" type="button"(click)="fileInput1.click()">
+  Start Upload
+</button>
+            </mat-card-content>
+        <span *ngIf="apiService.fileservername!=null && apiService.fileservername[filenamevalc]!=null && apiService.fileservername[filenamevalc].length>0">
+            <span *ngFor="let item of apiService.fileservername[filenamevalc] ; let i=index;">
+                <span>
+                    <img src="{{filepathc}}/img">
+                    <button (click)="delimage(i)">Delete</button>
+                </span>
+            </span>
+
+
+        </span>
+
+</span>
+
+    <button mat-raised-button color="accent">Submit</button>
+</form>
+
+</span>

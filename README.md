@@ -22,3 +22,5 @@ Run `ng test listing` to execute the unit tests via [Karma](https://karma-runner
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## How to make PDF file downloadable in listing 
+ added your html page like  `[url]= [example url ]` custom url.

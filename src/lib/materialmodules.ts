@@ -9,6 +9,8 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
+import { CommonModule } from "@angular/common";
+// import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {
     MatAutocompleteModule,
     MatBadgeModule,
@@ -45,6 +47,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    // MatMomentDateModule,
 } from '@angular/material';
 
 @NgModule({
@@ -91,6 +94,7 @@ import {
         MatTreeModule,
         PortalModule,
         ScrollingModule,
+        // MatMomentDateModule,
     ]
 })
 export class DemoMaterialModule {}

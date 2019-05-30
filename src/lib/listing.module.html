@@ -2,10 +2,93 @@
 
 
   <mat-card>
+    <mat-toolbar-row class="searchbar" style="display: flex!important; justify-content: space-between!important;">
+    <mat-form-field class="searchdiv">
 
-    <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
+
+      <span  *ngIf="search_settingsval !=null && search_settingsval.textsearch != null ">
+    <mat-form-field *ngFor="let item of search_settingsval.textsearch" class="searchdiv">
+
+      <input matInput (change)="textsearchfunction(item.field)" (keyup)="textsearchfunction(item.field)" [(ngModel)]='tsearch[item.field]' placeholder="{{item.label}}">
+      <span matPrefix><i class="material-icons searchicon" >
+        search
+      </i> &nbsp;</span>
+    </mat-form-field>
+      </span>
+
+<span *ngIf="search_settingsval !=null && search_settingsval.search != null ">
+  <mat-form-field  *ngFor="let item of search_settingsval.search">
+    <input type="text" placeholder="{{item.label}}" matInput [(ngModel)]="autosearch[item.field]" [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+       <mat-option *ngFor="let option of result.res" [value]="option[item.field]" (click)="autosearchfunction(item.field)">
+        {{option[item.field]}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</span>
+
+
+<!--      <span *ngIf="search_settingsval !=null && search_settingsval != null ">
+
+      <mat-form-field *ngFor="let item of search_settingsval.search">
+        <mat-label>{{item.label}}</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let status of preresult" [value]="status" (click)="autosearchfunction(status.email)">
+            {{status.email}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      </span>-->
+    <!--  <ng-container  *ngIf="search_settingsval !=null && search_settingsval.textsearch != null ">
+&lt;!&ndash;        <span *ngFor="let status of this.search_settingsval.textsearch">&ndash;&gt;
+&lt;!&ndash;        <mat-form-field *ngFor="let statusval of status.value">&ndash;&gt;
+        <mat-form-field *ngFor="let status of this.search_settingsval.textsearch">
+              <input matInput (keyup)="applyFilter1($event.target.value, status)" placeholder="{{status.label}}">
+        </mat-form-field>
+&lt;!&ndash;              </span>&ndash;&gt;
+      </ng-container>-->
+
+
+      <ng-container  *ngIf="search_settingsval !=null && search_settingsval.selectsearch != null ">
+        <mat-form-field *ngFor="let status of this.search_settingsval.selectsearch">
+          <mat-label>{{status.label}}</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let statusval of status.values" [value]="statusval" (click)="selectSearch(statusval.val, status)">
+              {{statusval.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+
+      <ng-container *ngIf="date_search_endpointval !=null && date_search_sourceval != null && search_settingsval.datesearch != null ">
+        <span *ngFor="let status of this.search_settingsval.datesearch">
+        <mat-form-field >
+          <input matInput [matDatepicker]="picker"autocomplete="off"  placeholder="{{status.startdatelabel}}"  [(ngModel)]="start_date" >
+          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker1" autocomplete="off" placeholder="{{status.enddatelabel}}" [(ngModel)]="end_date" >
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 ></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="add_button" style="margin: 0!important; margin-left: 10px!important; " (click)="dateSearch(status.field)">{{status.submit}}</button>
+      </span>
+      </ng-container>
+
+
+
+      <span *ngIf="click_to_add_ananother_pageval !=null">
+        <button mat-raised-button color="primary" class="add_button" style="margin: 0!important; margin-left: 10px!important; " [routerLink]="click_to_add_ananother_pageval" >Add</button>
+      </span>
+    </mat-toolbar-row>
+
+
+
     <ng-container *ngIf="selection.selected.length!=null && selection.selected.length>0">
       <button mat-raised-button (click)="deletemultiple()"> Delete </button>
       <button mat-raised-button (click)="managestatusmultiple()"> Update Status </button>
@@ -22,7 +105,7 @@
                         [indeterminate]="selection.hasValue() && !isAllSelected()">
           </mat-checkbox>
         </th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" data-label="select">
           <mat-checkbox (click)="$event.stopPropagation()"
                         (change)="$event ? selection.toggle(row) : null"
                         [checked]="selection.isSelected(row)">
@@ -31,51 +114,96 @@
       </ng-container>
 
       <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header-center">{{ column.header }}</th>
-        <td mat-cell *matCellDef="let row"  [ngStyle]="styleCell(column,row)" class="td-cell-center">
-          <span *ngIf="column.columnDef=='status' ">{{ getstatus([column.cell(row)]) }}</span>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header-center">{{column.header}}</th>
+        <td mat-cell *matCellDef="let row" [ngStyle]="styleCell(column,row)" data-title="{{column.header}}"   class="td-cell-center">
+          <span *ngIf="column.columnDef=='status' ">{{ getstatus([column.cell(row)]) }} {{hi(row)}}</span>
           <span *ngIf="column.columnDef!='status' ">{{ column.cell(row) }}</span>
+          <span *ngIf="column.columnDef=='grab_url && grab_linkval!=null && grab_linkval[0]!=null' ">{{grapurl(row[this.grab_linkval[0].field_name])}}</span>
+          <br>
+
+<!--          <span *ngIf="sh==true">-->
+            <span *ngIf="column.columnDef=='contractssigned' && sh==true && urlval !=null" class="cursor">
+              <i title="{{urlval[0].label}}" (click)="clickurl(row,urlval[0].url)" class="material-icons">cloud_download</i>
+            </span>
+<!--          </span>-->
+<!--          <span *ngIf="aud==true">-->
+            <span *ngIf="column.columnDef=='contractssigned' && aud==true  && urlval !=null">
+              <i title="{{urlval[1].label}}" (click)="clickurl(row,urlval[1].url)" class="material-icons">cloud_download</i>
+            </span>
+
+
+<!--// for grap url//-->
+
+          {{column.columnDef}}{{grab_linkval[0].col_name}}
+
+          <span *ngIf=" grab_linkval!=null && grab_linkval[0]!=null && column.columnDef==[grab_linkval[0].col_name]" class="cursor"> hkjhk
+              <button mat-button (click)="copyText(row[grab_linkval[0].field_name],grab_linkval[1].url)">{{grab_linkval[1].label}}</button>
+            </span>
+          <br>
+          <!--          </span>-->
+          <!--          <span *ngIf="aud==true">-->
+          <span *ngIf="grab_linkval!=null && grab_linkval[0]!=null &&column.columnDef== [grab_linkval[0].col_name]"> nk
+              <button mat-button (click)="copyText(row[grab_linkval[0].field_name],grab_linkval[2].url)">{{grab_linkval[2].label}}</button>
+            </span>
+
+<!--          //grap url end//-->
+
+
+<!--          </span>-->
+          <!-- <span *ngIf="column.columnDef=='contractssigned' ">
+            <span *ngFor="let item of urlval" class="cursor">
+            <i title="{{item.label}}" (click)="clickurl(row,item.url)" class="material-icons">cloud_download</i>
+          </span>
+          </span>-->
         </td>
       </ng-container>
+
 
 
       <ng-container matColumnDef="Actions"   >
         <th mat-header-cell *matHeaderCellDef  class="th-header-center">Actions</th>
-        <td (click)="$event.stopPropagation()" mat-cell  *matCellDef="let row"  class="td-cell-center">
+        <td (click)="$event.stopPropagation()" mat-cell  *matCellDef="let row" data-label="Actions"  class="td-cell-center">
           <span *ngIf="selection.selected.length==null || selection.selected.length==0">
-        <span class="cursor" (click)="editdata(row)">
-        <i class="material-icons">
-          edit
-        </i>
-        </span>
+            <span class="cursor" (click)="editdata(row)" >
+              <i class="material-icons">
+                edit
+              </i>
+            </span>
 
-          <!--For modern browsers-->
-          <span class="cursor" (click)="deletedata(row)" >
-        <i class="material-icons">
-          delete_outline
-        </i>
-        </span>
+            <!--For modern browsers-->
+            <span class="cursor" (click)="deletedata(row)" >
+              <i class="material-icons">
+                delete_outline
+              </i>
+            </span>
 
-          <!--For modern browsers-->
-          <span class="cursor" (click)="viewdata(row)" >
-          <i class="material-icons">
-            pageview
-          </i>
-          </span>
+            <!--For modern browsers-->
+            <span class="cursor" (click)="viewdata(row)" >
+              <i class="material-icons">
+                pageview
+              </i>
+            </span>
 
-          <!--For modern browsers-->
-          <span class="cursor" (click)="managestatus(row)" >
-          <i class="material-icons">
-            toggle_off
-          </i>
-          </span>
+            <!--For modern browsers-->
+            <span class="cursor" (click)="managestatus(row)" >
+              <i class="material-icons">
+                toggle_off
+              </i>
+            </span>
+            <span *ngIf="custombuttonval!=null" class="cursor treeclass" (click)="custombuttonfunc(row)" >
+              <i class="material-icons treeclass">
+                toggle_off
+              </i>
+            </span>
+
           </span>
 
         </td>
-        <!--<td *ngIf="column.objlength==i+1" mat-cell *matCellDef="i">
-          <mat-icon>more_vert</mat-icon>
-        </td>-->
       </ng-container>
+
+
+
+
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -84,11 +212,66 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[5,10, 20, 50,100]" showFirstLastButtons></mat-paginator>
+    <mat-spinner *ngIf="loading == true" ></mat-spinner>
 
     <br>
 
 
+   <!-- <form [formGroup]="stateForm">
+      <mat-form-field>
+        <input type="text" matInput placeholder="States Group" formControlName="stateGroup" required [matAutocomplete]="autoGroup">
+        <mat-autocomplete #autoGroup="matAutocomplete">
+          <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
+            <mat-option *ngFor="let name of group.names" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>-->
+
+    <!--<form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Select state" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of stateGroup | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+-->
 
   </mat-card>
 
+<!--
+  <mat-card>
+
+    <div class="example-container">
+
+
+      <mat-card-content >
+        <mat-form-field class="form-group">
+            <input (blur)="inputblur('email')" matInput placeholder="email" type="email" [formControl]="myForm.controls['email']" >
+            <mat-error  *ngIf="!myForm.controls['email'].valid && myForm.controls['email'].touched && issubmit==1">email field can not be blank</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group">
+            <input (blur)="inputblur('password')" matInput placeholder="Password" type="password" [formControl]="myForm.controls['password']" >
+            <mat-error  *ngIf="!myForm.controls['password'].valid && myForm.controls['password'].touched && issubmit==1">Password field can not be blank</mat-error>
+        </mat-form-field>
+
+            <button mat-button  (click)="onSubmit()" class="s_getmyoffer_login_button"  >Login</button>
+        </mat-card-content>
+
+
+    </div>
+
+  </mat-card>-->
+  <br>
+  <br>
+
+
+
 </div>
+
