@@ -65,23 +65,27 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
 
 
-  // use for grab the link
 
-  grab_link: any = [
-      {
-          col_name: 'grab_url',
-          field_name: 'name'
-      },
-      {
-          label: 'shatterblok grab url',
-          url: 'artixtxp.com/',
-          action: 'null'
-      }, {
-          label: 'Audiodateline grab url',
-          url: 'audiodateline.com/',
-          action: 'null'
-      }
-  ];
+  // use for grab the link
+    grab_link: any = {
+        colom_name: [
+            {
+                col_name: 'author',
+                field_name: 'author'
+            }],
+        field: [
+            {
+                label: 'shatterblok grab url',
+                url: 'artixtxp.com/',
+                action: 'null'
+            },
+            {
+                label: 'shatterblok grab url',
+                url: 'artixtxp.com/',
+                action: 'null'
+            }]
+
+    };
 
   tabledata: any = [];
 
@@ -110,6 +114,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
   // use for Table Header modification 
 
   // Like Table head name is " firstname" => "First Name"
+  // if any time "ex_ex" not modify that time use this "ex ex" 
 
   modify_header_array: any = {
       'author': "AUTHOR",
@@ -153,7 +158,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
   // searchendpoint is use for data search endpoint
 
-  searchendpoint = 'datalist';
+  searchendpoint = 'datalist';          // this time not using
 
   // use for click to another page routing path
 
@@ -176,12 +181,36 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
   // other data
 
   libdata:any={
+        basecondition:{status:1},           // this is for basic condition if you are added youer end point additional condition
+//    this is use for view detail header modifications
+       detailview_override: [
+            { key: "tags_array", val: "Tags" },
+            { key: "author", val: "Written By" },
+            { key: "blogtitle", val: "Title" },
+            { key: "created_datetime", val: "Date Added with time" },
+            { key: "created_date", val: "Date Added only" },
+        ],                            // optional
+// this is use for notes button on that listing
+        notes: {
+            label: "Blog Notes",
+            addendpoint: "addnotedata",               // note add end point
+            deleteendpoint: "deletenotedata",         // note delete end point
+            listendpoint: "listnotedata",             // note list end point
+            user: "5e0c80cd3a339a042de8717d",         // user id
+            currentuserfullname: "Debasis",           // user name
+            header: 'blogtitle',                     
+        },
+        updateendpointmany: 'updateendpointmany',     // update many endpoint 
+        deleteendpointmany: 'deleteendpointmany',     // delete many endpoint 
       updateendpoint:'statusupdate',        // update endpoint set
       hideeditbutton:false,                 // (hide edit button ) all these button options are optional not mandatory
       // hidedeletebutton:true,             // (hide delete button)
       //hideviewbutton:false,               // (hide view button)
       //hidestatustogglebutton:true,        // (hide status toggle button)
       // hideaction:true,                   // (hide action column)
+      hidemultipleselectbutton: false,      // (hide multipleselect chickbox)
+      hidedeletemany: true,                 // (hide delete many button)
+      hideupdatemany: false,                // (hide update many button)
       tableheaders:['author','priority','blogtitle','status','wrongone','image'],   //not required (table header name)
       custombuttons:[
           {
@@ -205,6 +234,15 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
               param:['blogtitle','_id'],                             // passed to parameter with blog title and id
               cond:'status',                                         // condition for status
               condval: 0                                             // condition value status=0 , if value=1 and status =0 then the button will dissappear
+          },
+          {
+              label: "downLoad Pdf",                               // Label Name to download pdf 
+              link: "https://s3.us-east-2.amazonaws.com/crmfiles.influxhostserver/html-pdf/report", // link to download pdf
+              type: 'externallink',                                // External link
+              paramtype: 'angular',                                // paramtype is angular
+              param: ['_id'],                                      // passed Parameter
+              //cond:'status',
+              // condval: 0
           },
           {
               label:" fb profile ",                              // fb profile button 
@@ -239,7 +277,39 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
               cond:'status',                    // condition for status
               condval:0,                       //condition value status=0 , if value=1 and status =0 then the button will dissappear
               param:['_id','blogtitle'],        // passed with params
-          }
+          },
+           {
+               label: "delete",
+               toggle: "delete",
+               type: 'internallink',
+            },
+            {
+              label:"See Brand With Params",     // see brand button with param
+              route:"example",                    // go to brand route
+              type:'internallink',             // same application but different page with params .
+              cond:'status',                    // condition for status
+              condval:1,                       //condition value status=0 , if value=1 and status =0 then the button will dissappear
+              param:['_id'],    // passed with params
+            },
+            {
+                label: "Desc from data",                 //  label name to See local data
+                type: 'action',                          //  Type - action
+                datatype: 'local',                       //  Datatype - local (To display local data)
+                datafields: ['description', 'author', 'blogtitle', 'tags_array', 'image', 'video_array', 'created_date', 'created_datetime', 'image_array', 'video', 'img_array', 'vd_array'], // data fields
+                // cond:'status',
+                // condval:0
+            },
+            {
+                label: "Desc from api data",             //  label name to See Endpoint Call data
+                type: 'action',                          //  Type - action
+                datatype: 'api',                         //  datatype -api (To display data by calling End Point )
+                endpoint: 'getblogdatabyid',             //  End Point Name from where Data is collected
+                otherparam: ['author', 'blogtitle'],
+                //cond:'status',
+                //condval:0,
+                param: 'blog_id',                        // param name
+                refreshdata: true,
+            }
       ]
   }
 
@@ -306,7 +376,6 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
               "type":'desc',         // defalut field sort type 
               "field":'author'       // default sort field
           }
-
       }
       this._apiService.postData(endpointc, data).subscribe((res:any) => {
           // console.log('in constructor');
