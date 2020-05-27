@@ -197,7 +197,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
     libdata:any={
         basecondition:{status:1},       // this is for basic condition if you are added youer end point additional condition
         
-//    this is use for view detail header modifications
+    //    this is use for view detail header modifications
 
        detailview_override: [
             { key: "tags_array", val: "Tags" },
