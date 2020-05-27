@@ -209,7 +209,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
         
         // optional
         
-// this is use for notes button on that listing
+      // this is use for notes button on that listing
 
           notes: {
               label: "Blog Notes",
@@ -331,9 +331,9 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
                 refreshdata: true,
             }
       ]
-  }
+    }
 
-// send basic sort data
+  // send basic sort data
   
     sortdata:any={
         "type":'asc',                                             //  default sort data ascend and descend (desc)
