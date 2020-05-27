@@ -53,20 +53,22 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
   // use for Download the PDF
 
-  custom_link: any = [{
-      label: 'shatterblok',
-      url: 'http://shatterblok.com/testpdf/html2pdf/shatterblok-agreement.php?id=',
-      action: 'null'
-  }, {
-      label: 'Audiodateline',
-      url: 'http://shatterblok.com/testpdf/html2pdf/audiodeadline-agreement.php?id=',
-      action: 'null'
-  }];
+    custom_link: any = [{
+        label: 'shatterblok',
+        url: 'http://shatterblok.com/testpdf/html2pdf/shatterblok-agreement.php?id=',
+        action: 'null'
+        },
+        {
+        label: 'Audiodateline',
+        url: 'http://shatterblok.com/testpdf/html2pdf/audiodeadline-agreement.php?id=',
+        action: 'null'
+    }];
 
 
 
 
   // use for grab the link
+  
     grab_link: any = {
         colom_name: [
             {
@@ -87,28 +89,39 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
     };
 
-  tabledata: any = [];
+
+    tabledata: any = [];
 
   // use for status search
 
-  public status: any = [{ val: 0, 'name': 'Active' }, { val: 1, 'name': 'Inactive' }, { val: 3, 'name': 'Lock' }];
+
+
+    public status: any = [{ val: 0, 'name': 'Active' }, { val: 1, 'name': 'Inactive' }, { val: 3, 'name': 'Lock' }];
 
 
   //status name set
 
-  statusarray: any = [{val: 0, name: 'Active'}, {val: 1, name: 'Inactive'}, {val: 3, name: 'Lock'}]; 
+
+
+    statusarray: any = [{val: 0, name: 'Active'}, {val: 1, name: 'Inactive'}, {val: 3, name: 'Lock'}]; 
 
 
   // use for ststic email search
   //  Example like this
 
-  emailarray: any = [{val: 'sourotest222@gmail.com', name: 'sourotest222@gmail.com'}, {val: 'octtest@yopmail.com', name: 'octtest@yopmail.com'}, {val: 'septest@yopmail.com', name: 'septest@yopmail.com'}];
+
+
+    emailarray: any = [
+      {val: 'sourotest222@gmail.com', name: 'sourotest222@gmail.com'},
+      {val: 'octtest@yopmail.com', name: 'octtest@yopmail.com'},
+      {val: 'septest@yopmail.com', name: 'septest@yopmail.com'}
+    ];
 
   // use for edit any field Navigate that page And you should be import the app-routing.module.ts   ex:- {path: 'editroute/:id', component: < "Write the class name"> },
 
   //  Example like this
 
-  editroute: any = 'editroute';
+    editroute: any = 'editroute';
 
 
   // use for Table Header modification 
@@ -116,71 +129,72 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
   // Like Table head name is " firstname" => "First Name"
   // if any time "ex_ex" not modify that time use this "ex ex" 
 
-  modify_header_array: any = {
-      'author': "AUTHOR",
-      'priority': 'PRIORITY',
-      'status': 'STATUS',
-      'image': 'IMAGE',
-      'blogtitle':"Blog Title"
-  };
+    modify_header_array: any = {
+        'author': "AUTHOR",
+        'priority': 'PRIORITY',
+        'status': 'STATUS',
+        'image': 'IMAGE',
+        'blogtitle':"Blog Title"
+    };
 
 
   // use for Table Header Skip 
 
-  tabledata_header_skip: any = ['_id','video_thamnail','type', 'password','description','created_at'];
+    tabledata_header_skip: any = ['_id','video_thamnail','type', 'password','description','created_at'];
 
 
 
   // use for Table Detail Field Skip
 
-  tabledata_detail_skip: any = ['_id', 'email', 'name'];
+    tabledata_detail_skip: any = ['_id', 'email', 'name'];
 
 
   // use for Table Detail inside the modal image path
 
-  tabledata_detail_datatype: any = [{
-      key: "images",
-      value: 'image',
-      fileurl: "http://18.222.26.198/upload/brandimages/"             // Image path 
-  }];
+    tabledata_detail_datatype: any = [{
+        key: "images",
+        value: 'image',
+        fileurl: "http://18.222.26.198/upload/brandimages/"             // Image path 
+    }];
 
   // updateendpoint is use for data update endpoint
 
-  updateendpoint = 'addorupdatedata';
+    updateendpoint = 'addorupdatedata';
 
   // deleteendpoint is use for data delete endpoint
 
-  deleteendpoint = 'deletesingledata';
+    deleteendpoint = 'deletesingledata';
 
   // this is a database collection name
 
-  tablename = 'users';
+    tablename = 'users';
 
   // searchendpoint is use for data search endpoint
 
-  searchendpoint = 'datalist';          // this time not using
+    searchendpoint = 'datalist';          // this time not using
 
   // use for click to another page routing path
 
-  click_to_add_ananother_page = '/adminlist';
+    click_to_add_ananother_page = '/adminlist';
 
 
 
   // date_search_endpoint is use for date search endpoint
 
-  date_search_endpoint: any='datalist';
+    date_search_endpoint: any='datalist';
 
   // send basic limit data 
 
-  limitcond:any={
-      "limit":10,
-      "skip":0,
-      "pagecount":1
-  };
+    limitcond:any={
+        "limit":10,
+        "skip":0,
+        "pagecount":1
+    };
 
   // other data
+  // lib data start
 
-  libdata:any={
+    libdata:any={
         basecondition:{status:1},       // this is for basic condition if you are added youer end point additional condition
         
 //    this is use for view detail header modifications
@@ -196,28 +210,29 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
         // optional
         
 // this is use for notes button on that listing
-        notes: {
-            label: "Blog Notes",
-            addendpoint: "addnotedata",               // note add end point
-            deleteendpoint: "deletenotedata",         // note delete end point
-            listendpoint: "listnotedata",             // note list end point
-            user: "5e0c80cd3a339a042de8717d",         // user id
-            currentuserfullname: "Debasis",           // user name
-            header: 'blogtitle',                     
-        },
-        updateendpointmany: 'updateendpointmany',     // update many endpoint 
-        deleteendpointmany: 'deleteendpointmany',     // delete many endpoint 
-      updateendpoint:'statusupdate',                  // update endpoint set
-      hideeditbutton:false,                           // (hide edit button ) all these button options are optional not mandatory
-       hidedeletebutton:true,                         // (hide delete button)
-       hideviewbutton:false,                          // (hide view button)
-       hidestatustogglebutton:true,                   // (hide status toggle button)
-       hideaction:true,                               // (hide action column)
-       hidemultipleselectbutton: false,               // (hide multipleselect chickbox)
-       hidedeletemany: true,                          // (hide delete many button)
-       hideupdatemany: false,                         // (hide update many button)
-       tableheaders:['author','priority','blogtitle','status','wrongone','image'],   //not required (table header name)
-      custombuttons:[
+
+          notes: {
+              label: "Blog Notes",
+              addendpoint: "addnotedata",               // note add end point
+              deleteendpoint: "deletenotedata",         // note delete end point
+              listendpoint: "listnotedata",             // note list end point
+              user: "5e0c80cd3a339a042de8717d",         // user id
+              currentuserfullname: "Debasis",           // user name
+              header: 'blogtitle',                     
+          },
+          updateendpointmany: 'updateendpointmany',     // update many endpoint 
+          deleteendpointmany: 'deleteendpointmany',     // delete many endpoint 
+          updateendpoint:'statusupdate',                  // update endpoint set
+          hideeditbutton:false,                    // (hide edit button ) all these button options are optional not mandatory
+          hidedeletebutton:true,                         // (hide delete button)
+          hideviewbutton:false,                          // (hide view button)
+          hidestatustogglebutton:true,                   // (hide status toggle button)
+          hideaction:true,                               // (hide action column)
+          hidemultipleselectbutton: false,               // (hide multipleselect chickbox)
+          hidedeletemany: true,                          // (hide delete many button)
+          hideupdatemany: false,                         // (hide update many button)
+          tableheaders:['author','priority','blogtitle','status','wrongone','image'],   //not required (table header name)
+          custombuttons:[
           {
               label:"fb search with blog title",            // fb search button name
               link:"https://www.facebook.com/search/top/",  // fb search link
@@ -320,38 +335,38 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
 // send basic sort data
   
-  sortdata:any={
-      "type":'asc',                                             //  default sort data ascend and descend (desc)
-      "field":'author',                                         // default field for sorting
-      "options":['priority','author','category','blogtitle']     //  sorting fields options for this table
-  };
+    sortdata:any={
+        "type":'asc',                                             //  default sort data ascend and descend (desc)
+        "field":'author',                                         // default field for sorting
+        "options":['priority','author','category','blogtitle']     //  sorting fields options for this table
+    };
 
 
   // this is a database collection or view name
 
-  date_search_source: any='admin_blog_list'; 
+    date_search_source: any='admin_blog_list'; 
 
   // datacollection
   
-  datacollection: any='getadminbloglistdata';        // end point 
+    datacollection: any='getadminbloglistdata';        // end point 
   
   //source count
   
-  date_search_source_count: any=0;                 // variable declare and initialize for default counting data
+    date_search_source_count: any=0;                 // variable declare and initialize for default counting data
 
   
   // this is use for  All type of search
   
-  authval:any= [                                  // this is used for author search
-      { val: 'YmattZ', 'name': 'YmattZ A' },          
-      { val: 'YmattZ', 'name': 'YmattZ A' },       // these are all deafult value for search we can change it
-      { val: 'Ymatt', 'name': 'YmattZ AB' },
-      { val: 'Jessica', 'name': 'A Jessica' }
-  ];
+    authval:any= [                                  // this is used for author search
+        { val: 'YmattZ', 'name': 'YmattZ A' },          
+        { val: 'YmattZ', 'name': 'YmattZ A' },       // these are all deafult value for search we can change it
+        { val: 'Ymatt', 'name': 'YmattZ AB' },
+        { val: 'Jessica', 'name': 'A Jessica' }
+    ];
   
   // this is search details
 
-  search_settings:any={
+    search_settings:any={
 
       datesearch:[{startdatelabel:"Start Date",enddatelabel:"End Date",submit:"Search",  field:"created_at"}],      // this is use for  date search                    //created at = field in res which gives date in unix format that changes to ist using moment.js
 
@@ -366,41 +381,39 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
 <!-- inserted constructor -->
 
-// console.log('custom_link');
-      // console.log(this.custom_link);
-      this.datasource = '';
-      let endpoint='getadminbloglistdata'; // for main data endpoint
-      let endpointc='getadminbloglistdata-count'; // for count endpoint
-      // data param for conditionlimit and search
-      let data:any={
-          "condition":{
-              "limit":10,
-              "skip":0
-          },
-          sort:{
-              "type":'desc',         // defalut field sort type 
-              "field":'author'       // default sort field
-          }
-      }
-      this._apiService.postData(endpointc, data).subscribe((res:any) => {
-          // console.log('in constructor');
-          console.log(res,' for count');
-          this.date_search_source_count =res.count;
-          //console.warn('blogData c',res);
+        this.datasource = '';
+        let endpoint='getadminbloglistdata'; // for main data endpoint
+        let endpointc='getadminbloglistdata-count'; // for count endpoint
+        // data param for conditionlimit and search
+        let data:any={
+            "condition":{
+                "limit":10,
+                "skip":0
+            },
+            sort:{
+                "type":'desc',         // defalut field sort type 
+                "field":'author'       // default sort field
+            }
+        }
+        this._apiService.postData(endpointc, data).subscribe((res:any) => {
+            // console.log('in constructor');
+            console.log(res,' for count');
+            this.date_search_source_count =res.count;
+            //console.warn('blogData c',res);
 
-      }, error => {
-          console.log('Oooops!');
-      });
+        }, error => {
+            console.log('Oooops!');
+        });
 
-      this._apiService.postData(endpoint,data).subscribe((response:any) => {
-          // console.log('in constructor');
-          console.log(response,' for table data');
-          this.tabledata =response.results.res;
-          console.warn('blogData',this.tabledata);
+        this._apiService.postData(endpoint,data).subscribe((response:any) => {
+            // console.log('in constructor');
+            console.log(response,' for table data');
+            this.tabledata =response.results.res;
+            console.warn('blogData',this.tabledata);
 
-      }, error => {
-          console.log('Oooops!');
-      });
+        }, error => {
+            console.log('Oooops!');
+        });
 
   }
 
