@@ -181,16 +181,19 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
   // other data
 
   libdata:any={
-        basecondition:{status:1},           // this is for basic condition if you are added youer end point additional condition
+        basecondition:{status:1},       // this is for basic condition if you are added youer end point additional condition
         
 //    this is use for view detail header modifications
+
        detailview_override: [
             { key: "tags_array", val: "Tags" },
             { key: "author", val: "Written By" },
             { key: "blogtitle", val: "Title" },
             { key: "created_datetime", val: "Date Added with time" },
             { key: "created_date", val: "Date Added only" },
-        ],                            // optional
+        ],                            
+        
+        // optional
         
 // this is use for notes button on that listing
         notes: {
