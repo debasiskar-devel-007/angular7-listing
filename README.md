@@ -182,6 +182,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
 
   libdata:any={
         basecondition:{status:1},           // this is for basic condition if you are added youer end point additional condition
+        
 //    this is use for view detail header modifications
        detailview_override: [
             { key: "tags_array", val: "Tags" },
@@ -190,6 +191,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
             { key: "created_datetime", val: "Date Added with time" },
             { key: "created_date", val: "Date Added only" },
         ],                            // optional
+        
 // this is use for notes button on that listing
         notes: {
             label: "Blog Notes",
@@ -202,16 +204,16 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
         },
         updateendpointmany: 'updateendpointmany',     // update many endpoint 
         deleteendpointmany: 'deleteendpointmany',     // delete many endpoint 
-      updateendpoint:'statusupdate',        // update endpoint set
-      hideeditbutton:false,                 // (hide edit button ) all these button options are optional not mandatory
-      // hidedeletebutton:true,             // (hide delete button)
-      //hideviewbutton:false,               // (hide view button)
-      //hidestatustogglebutton:true,        // (hide status toggle button)
-      // hideaction:true,                   // (hide action column)
-      hidemultipleselectbutton: false,      // (hide multipleselect chickbox)
-      hidedeletemany: true,                 // (hide delete many button)
-      hideupdatemany: false,                // (hide update many button)
-      tableheaders:['author','priority','blogtitle','status','wrongone','image'],   //not required (table header name)
+      updateendpoint:'statusupdate',                  // update endpoint set
+      hideeditbutton:false,                           // (hide edit button ) all these button options are optional not mandatory
+       hidedeletebutton:true,                         // (hide delete button)
+       hideviewbutton:false,                          // (hide view button)
+       hidestatustogglebutton:true,                   // (hide status toggle button)
+       hideaction:true,                               // (hide action column)
+       hidemultipleselectbutton: false,               // (hide multipleselect chickbox)
+       hidedeletemany: true,                          // (hide delete many button)
+       hideupdatemany: false,                         // (hide update many button)
+       tableheaders:['author','priority','blogtitle','status','wrongone','image'],   //not required (table header name)
       custombuttons:[
           {
               label:"fb search with blog title",            // fb search button name
