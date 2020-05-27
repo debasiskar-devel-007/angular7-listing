@@ -375,7 +375,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
       textsearch:[{label:"Search By Title",field:'blogtitle_search'},{label:"Search by auther",field:"author_search"}],                     // this is use for  text search
 
       search:[{label:"Search By Author",field:'author_search',values:this.authval}]         // this is use for  Autocomplete search
-  };
+    };
 
   // this is search block 
 
@@ -415,18 +415,16 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
             console.log('Oooops!');
         });
 
-  }
 
 <------------------------------------------ts page end -------------------------------------------->
 
-`// Insert all data` 
+// Insert all data
 
-`This is the array => tabledata = result `
+This is the array => tabledata = result 
  
 
 
-`<lib-listing *ngIf="tabledata!=null && tabledata.length>0"      // chacking the condition`
-
+    <lib-listing *ngIf="tabledata!=null && tabledata.length>0"      // chacking the condition
     [datasource]="tabledata"                                  // Insert all data into datasource
     [skip]="tabledata_header_skip"                            // Skip The Table Header
     [modify_header_array]="modify_header_array"               // Modify The Table Header
@@ -450,4 +448,4 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
     [libdata]="libdata"                                       // other data
     [limitcond]="limitcond">
     
- `</lib-listing>`
+    </lib-listing>
