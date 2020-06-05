@@ -316,6 +316,7 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
                 type: 'action',                          //  Type - action
                 datatype: 'local',                       //  Datatype - local (To display local data)
                 datafields: ['description', 'author', 'blogtitle', 'tags_array', 'image', 'video_array', 'created_date', 'created_datetime', 'image_array', 'video', 'img_array', 'vd_array'], // data fields
+                headermessage: 'Local Info',  // set modal header name  
                 // cond:'status',
                 // condval:0
             },
@@ -325,6 +326,8 @@ IF you use Linux or Mac open the terminal and Run `sudo npm install angular7-lis
                 datatype: 'api',                         //  datatype -api (To display data by calling End Point )
                 endpoint: 'getblogdatabyid',             //  End Point Name from where Data is collected
                 otherparam: ['author', 'blogtitle'],
+                datafields: ['created_date', 'blogtitle', 'description', 'author', 'created_datetime'],  // data fields
+                headermessage: 'Api Info',          // set modal header name 
                 //cond:'status',
                 //condval:0,
                 param: 'blog_id',                        // param name
